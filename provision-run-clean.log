@@ -1,0 +1,37 @@
+Configuring application groups, users, and directories...
+Directory structures, environment files, and ACL settings finalized!
+Deploying and hardening the systemd payments service...
+=== Phase 4: Configuring UFW Firewall Policies ===
+Backing up 'user.rules' to '/etc/ufw/user.rules.20260621_203817'
+Backing up 'before.rules' to '/etc/ufw/before.rules.20260621_203817'
+Backing up 'after.rules' to '/etc/ufw/after.rules.20260621_203817'
+Backing up 'user6.rules' to '/etc/ufw/user6.rules.20260621_203817'
+Backing up 'before6.rules' to '/etc/ufw/before6.rules.20260621_203817'
+Backing up 'after6.rules' to '/etc/ufw/after6.rules.20260621_203817'
+
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+Default outgoing policy changed to 'allow'
+(be sure to update your rules accordingly)
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated
+Firewall is active and enabled on system startup
+=== Verification: Evaluating Firewall Intent ===
+PASS: Loopback allowed on port 3001
+PASS: External access denied on port 3001
+PASS: SSH restricted to monitoring subnet
+PASS: HTTP restricted to monitoring subnet
+Deploying kk-api and kk-logs services...
+Configuring persistent journald storage...
+Configuring log rotation...
+Running network port and health validation...
+PASS: kk-api enabled
+PASS: kk-payments enabled
+PASS: kk-logs enabled
+PASS: logrotate config exists
+PASS: health file exists
+All verification checks passed.
