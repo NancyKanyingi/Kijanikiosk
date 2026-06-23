@@ -1,0 +1,87 @@
+# KijaniKiosk Access Model
+
+## Purpose
+
+The KijaniKiosk access model is designed around the principle of least privilege. Each service receives only the permissions required to perform its operational responsibilities.
+
+## Users
+
+### kk-api
+
+Role:
+Application API service.
+
+Responsibilities:
+- Reads application configuration.
+- Writes application logs.
+- Serves API requests.
+
+Restrictions:
+- No interactive login.
+- Limited filesystem access.
+
+### kk-payments
+
+Role:
+Payments processing service.
+
+Responsibilities:
+- Reads payments configuration.
+- Processes payment transactions.
+- Writes operational logs.
+
+Restrictions:
+- No interactive login.
+- Isolated execution environment.
+
+### kk-logs
+
+Role:
+Monitoring and logging service.
+
+Responsibilities:
+- Reads shared log files.
+- Generates monitoring information.
+- Maintains health reports.
+
+Restrictions:
+- No interactive login.
+- Read-only access where possible.
+
+## Group Structure
+
+Group:
+kijanikiosk
+
+Purpose:
+Provides controlled shared access between services.
+
+## Directory Access Model
+
+| Directory | Owner | Group | Purpose |
+|------------|---------|---------|---------|
+| Shared logs | Root | kijanikiosk | Shared application logs |
+| Configuration | Root | kijanikiosk | Environment configuration |
+| Health | kk-logs | kijanikiosk | Monitoring outputs |
+
+## ACL Strategy
+
+ACLs are used to allow:
+- kk-api access to shared logs.
+- kk-payments access to shared logs.
+- Future log files to inherit permissions automatically.
+
+## Logrotate Interaction
+
+Default ACLs ensure newly created log files inherit the required access model after rotation.
+
+This prevents service failures caused by permission changes after log maintenance operations.
+
+## Health Directory Addition
+
+A dedicated health directory was introduced to support monitoring outputs.
+
+Ownership was assigned to the monitoring service to ensure:
+- Health reports can be generated.
+- Monitoring tools can access status information.
+- Administrative intervention is not required.
